@@ -1,4 +1,6 @@
 # elephant-crowler
+![Python Version from PEP 621 TOML](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2Fstupidcucumber%2Felephant-crowler%2Frefs%2Fheads%2Fmain%2Fpyproject.toml)
+
 
 ## Development
 To start contributing this repository:
@@ -14,3 +16,10 @@ pre-commit install
 ```
 
 You're good to go!
+
+## Architecture
+![Architecture](./assets/architecture.png)
+
+1. DB stores all data from the texts.
+2. Core-API provides access to the database for the external services.
+3. Crawler-SVC starts all

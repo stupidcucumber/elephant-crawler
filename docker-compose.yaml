@@ -1,0 +1,4 @@
+services:
+  elephant-crawler-db:
+  elephant-crawler-core-api:
+  elephant-crawler-crawlers-svc:
