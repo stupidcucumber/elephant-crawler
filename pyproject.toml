@@ -1,0 +1,25 @@
+[project]
+name = "elephant-crawler"
+version = "0.0.1"
+authors = [
+    {name="Ihor Kostiuk", email="ihor.kostiuk@knu.ua"},
+    {name="Mykhailo Statnik", email="miha.s@knu.ua"}
+]
+description = "System for data mining from websites."
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
+]
+
+[tool.flake8]
+max-line-length=90
+exclude = [
+    ".git",
+    "__pycache__"
+]
+extend-ignore = [
+    "E203",
+]
