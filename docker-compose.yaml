@@ -1,4 +1,30 @@
 services:
-  elephant-crawler-db:
-  elephant-crawler-core-api:
+  elephant-crawler-db-svc:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - svc/db/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=elephant
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  elephant-crawler-core-api-svc:
+    build: svc/core-api
+    restart: always
+    depends_on:
+      elephant-crawler-db-svc:
+        condition: service_healthy
+
   elephant-crawler-crawlers-svc:
+    build: svc/crawlers
+    restart: always
+    depends_on:
+      - elephant-crawler-core-api-svc
