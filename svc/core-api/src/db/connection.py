@@ -69,6 +69,15 @@ def setup_connection_pool(
     Returns
     -------
     ThreadedConnectionPool
+
+    Notes
+    -----
+    To run properly the following environment variables needs to be defined:
+        - DB_NAME
+        - DB_HOST
+        - DB_PORT
+        - DB_USER
+        - DB_PASSWORD
     """
     _connection_pool = ThreadedConnectionPool(
         host=_extract_db_host_from_env(),
@@ -88,6 +97,11 @@ def setup_connection_pool(
 def setup_connection() -> connection:
     """Setups a single connection to the Postgres database. Also runs initialization
     on a database.
+
+    Returns
+    -------
+    connection
+        A single connection to a database.
 
     Notes
     -----
