@@ -5,11 +5,11 @@ services:
       - "5432:5432"
     restart: always
     volumes:
-      - svc/db/data:/var/lib/postgresql/data
+      - ./svc/db/data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=postgres
+      - POSTGRES_USER=postgress
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=elephant
+      - POSTGRES_DB=elephant-db
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
       interval: 5s
@@ -17,14 +17,28 @@ services:
       retries: 5
 
   elephant-crawler-core-api-svc:
-    build: svc/core-api
+    build:
+      context: .
+      dockerfile: ./svc/core-api/Dockerfile
     restart: always
+    volumes:
+      - ./libs:/app/libs
+    environment:
+      - DB_USER=postgress
+      - DB_PASSWORD=password
+      - DB_NAME=elephant-db
+      - DB_PORT=5432
+      - DB_HOST=elephant-crawler-db-svc
     depends_on:
       elephant-crawler-db-svc:
         condition: service_healthy
 
   elephant-crawler-crawlers-svc:
-    build: svc/crawlers
+    build:
+      context: .
+      dockerfile: ./svc/crawlers/Dockerfile
     restart: always
+    volumes:
+      - ./libs:/app/libs
     depends_on:
       - elephant-crawler-core-api-svc
