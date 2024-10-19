@@ -1,4 +1,5 @@
 from itertools import chain
+from typing import Any
 
 from models import ScrappedText
 from psycopg2._psycopg import cursor
@@ -26,6 +27,24 @@ def _sql_values_from_model(
         result_keys.append(key)
         result_values.append(value)
     return (result_keys, result_values)
+
+
+def _model_from_sql_values(keys: list[str], values: list[Any]) -> ScrappedText:
+    """Instantiates model from the extracted from the database
+    values.
+
+    Parameters
+    ----------
+    keys : list[str]
+        Keys to match values to.
+    values : list[Any]
+        Values from extracted.
+
+    Returns
+    -------
+    ScrappedText
+    """
+    return ScrappedText(**dict(zip(keys, values)))
 
 
 def insert_scrapped_text(
@@ -61,3 +80,31 @@ def insert_scrapped_text(
     )
 
     return db_cursor.fetchone()[0]
+
+
+def select_scrapped_texts(db_cursor: cursor) -> list[ScrappedText]:
+    """Function runs SELECT statement on the table `scrapped_texts` from the
+    database.
+
+    Parameters
+    ----------
+    db_cursor : cursor
+        Cursor object to execute statements for the Postgres database.
+
+    Returns
+    -------
+    list[ScrappedText]
+        A list of all existing ScrappedTexts in the database.
+    """
+    keys = list(ScrappedText.model_fields.keys())
+
+    db_cursor.execute(
+        f"""
+        SELECT {",".join(keys)}
+        FROM scrapped_texts;
+        """
+    )
+
+    return [
+        _model_from_sql_values(keys=keys, values=item) for item in db_cursor.fetchall()
+    ]

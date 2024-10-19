@@ -21,6 +21,8 @@ services:
       context: .
       dockerfile: ./svc/core-api/Dockerfile
     restart: always
+    ports:
+      - 8081:80
     volumes:
       - ./libs:/app/libs
     environment:
