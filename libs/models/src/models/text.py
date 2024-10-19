@@ -7,8 +7,8 @@ class ScrappedText(BaseModel):
 
     Attributes
     ----------
-    text : str
+    scrapped_text : str
         Text itself.
     """
 
-    text: str
+    scrapped_text: str
