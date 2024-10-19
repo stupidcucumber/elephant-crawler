@@ -3,15 +3,19 @@ from pathlib import Path
 from fastapi import FastAPI
 from models import ScrappedText
 from src.db import db_cursor, insert_scrapped_text, setup_connection_pool
-from src.types.connection import Connection
+from src.types.connection import ConnectionStatus
 
 app = FastAPI()
 db_connection_pool = setup_connection_pool(initialization_sql=Path("assets/init.sql"))
 
 
-@app.get("/")
-def health_check() -> dict[str, str]:
-    return {"db_connection": Connection.CONNECTION_SUCCESS}
+@app.get("/", summary="Checks status of the connection to the Database.")
+def health_check() -> dict[str, ConnectionStatus]:
+
+    with db_cursor(dbpool=db_connection_pool) as cursor:
+        result = ConnectionStatus.check_connection(db_cursor=cursor)
+
+    return result
 
 
 @app.post(
