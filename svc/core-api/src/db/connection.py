@@ -85,6 +85,8 @@ def setup_connection_pool(
         dbname=_extract_db_name_from_env(),
         user=_extract_db_user_from_env(),
         password=_extract_db_password_from_env(),
+        minconn=4,
+        maxconn=100,
     )
 
     if initialization_sql:

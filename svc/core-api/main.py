@@ -3,7 +3,7 @@ from pathlib import Path
 from fastapi import FastAPI
 from models import ScrappedText
 from src.db import db_cursor, insert_scrapped_text, setup_connection_pool
-from src.types.connection import ConnectionStatus
+from src.types import ConnectionStatus
 
 app = FastAPI()
 db_connection_pool = setup_connection_pool(initialization_sql=Path("assets/init.sql"))
