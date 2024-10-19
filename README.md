@@ -7,7 +7,7 @@ To start contributing this repository:
 
 1. Install requirements:
 ```
-python -m pip install -r requirements.txt
+python -m pip install -r requirements.dev.txt
 ```
 
 2. Install pre-commit hook:
