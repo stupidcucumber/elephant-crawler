@@ -1,0 +1,23 @@
+[build-system]
+requires = [
+    "hatchling==1.25.0",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "models"
+version = "0.0.1"
+authors = [
+    {name="Ihor Kostiuk", email="ihor.kostiuk@knu.ua"},
+    {name="Mykhailo Statnik", email="miha.s@knu.ua"}
+]
+description = "Package for models used in elephant-crawler."
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pydantic",
+]
