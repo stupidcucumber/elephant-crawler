@@ -1,3 +1,2 @@
-pydantic
-urlpath
+requests
 -e libs/models
