@@ -1,3 +1,1 @@
-pydantic
-urlpath
 -e libs/models

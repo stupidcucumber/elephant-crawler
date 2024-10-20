@@ -4,7 +4,6 @@ from abc import ABC, abstractmethod
 from typing import Iterator
 
 from models import ScrappedText
-from urlpath import URL
 
 
 class BaseCrawler(ABC):
@@ -16,7 +15,7 @@ class BaseCrawler(ABC):
         Name of the crawler.
     """
 
-    def __init__(self, name: str, url: URL) -> None:
+    def __init__(self, name: str, url: str) -> None:
         super(BaseCrawler, self).__init__()
         self.name = name
         self.url = url
