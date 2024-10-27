@@ -1,2 +1,3 @@
 requests
 -e libs/models
+scrapy
