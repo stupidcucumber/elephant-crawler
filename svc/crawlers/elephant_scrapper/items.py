@@ -13,16 +13,16 @@ class ArticleItem(scrapy.Item):
     url = scrapy.Field()
 
 
-def remove_trailing_whitespace(input_string):
+def _remove_trailing_whitespace(input_string: str) -> str:
     return input_string.strip()
 
 
 class ArticleLoader(ItemLoader):
     default_output_processor = TakeFirst()
 
-    title_in = MapCompose(remove_trailing_whitespace)
+    title_in = MapCompose(_remove_trailing_whitespace)
 
-    subtitles_in = MapCompose(remove_trailing_whitespace)
+    subtitles_in = MapCompose(_remove_trailing_whitespace)
     subtitles_out = Join("\n")
 
     paragraphs_out = Join("\n")

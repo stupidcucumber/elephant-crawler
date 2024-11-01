@@ -64,8 +64,7 @@ DOWNLOAD_DELAY = 0
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     "elephant_scrapper.pipelines.FilterImcompleteDataPipeline": 1,
-    "elephant_scrapper.pipelines.TieAdditionalAttributesPipeline": 2,
-    "elephant_scrapper.pipelines.SaveToDbPipeline": 3,
+    "elephant_scrapper.pipelines.SendItemToApiPipeline": 2,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

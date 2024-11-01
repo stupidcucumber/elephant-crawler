@@ -23,33 +23,31 @@ class FilterImcompleteDataPipeline:
         return item
 
 
-class TieAdditionalAttributesPipeline:
-    def process_item(self, item, spider):
-        # setting additional attributes
-        return item
-
-
-class SaveToDbPipeline:
-    def __init__(self, mongo_uri, mongo_db):
-        self.mongo_uri = mongo_uri
-        self.mongo_db = mongo_db
+class SendItemToApiPipeline:
+    def __init__(self):
+        super().__init__()
 
     @classmethod
     def from_crawler(cls, crawler):
-        # just an example to fetch parameter from outside
-        return cls(
-            mongo_uri=crawler.settings.get("MONGO_URI"),
-            mongo_db=crawler.settings.get("MONGO_DATABASE", "items"),
-        )
+        """May be used to retrieve parameters from settings.py
+        like this crawler.settings.get("SOME_SETTINGS_KEY")
+
+
+        Parameters
+        ----------
+        crawler : Crawler
+            The crawler, from which the items will be sent
+
+        Returns
+        -------
+        SendItemToApiPipeline
+        """
+        return cls()
 
     def open_spider(self, spider):
-        # launch db
-        pass
-
-    def close_spider(self, spider):
-        # close db
+        """May be used to establish connection with host"""
         pass
 
     def process_item(self, item, spider):
-        # saving item to database
+        """Send item data to api here"""
         return item
