@@ -16,6 +16,11 @@ class ScrappedText(BaseModel):
         text was found.
     """
 
+    link: str
+    source: str
+    lang: str
+    author: str
+    header: str
     scrapped_text: str
     date_added: str | datetime
 
