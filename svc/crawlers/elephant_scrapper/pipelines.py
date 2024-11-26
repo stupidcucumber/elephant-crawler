@@ -4,9 +4,14 @@
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 
+from datetime import datetime
+
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
+from models import ScrappedText
 from scrapy.exceptions import DropItem
+
+from .request_sender import CoreApiSession
 
 
 class FilterImcompleteDataPipeline:
@@ -26,28 +31,21 @@ class FilterImcompleteDataPipeline:
 class SendItemToApiPipeline:
     def __init__(self):
         super().__init__()
-
-    @classmethod
-    def from_crawler(cls, crawler):
-        """May be used to retrieve parameters from settings.py
-        like this crawler.settings.get("SOME_SETTINGS_KEY")
-
-
-        Parameters
-        ----------
-        crawler : Crawler
-            The crawler, from which the items will be sent
-
-        Returns
-        -------
-        SendItemToApiPipeline
-        """
-        return cls()
-
-    def open_spider(self, spider):
-        """May be used to establish connection with host"""
-        pass
+        self.session = CoreApiSession()
 
     def process_item(self, item, spider):
         """Send item data to api here"""
+        adapter = ItemAdapter(item)
+
+        new_text = ScrappedText(
+            link=adapter.get("url"),
+            source=adapter.get("source"),
+            lang=adapter.get("language"),
+            author=adapter.get("author"),
+            header=adapter.get("title"),
+            scrapped_text=adapter.get("paragraphs"),
+            date_added=datetime.now(),
+        )
+
+        self.session.post(new_text)
         return item
