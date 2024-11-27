@@ -19,9 +19,22 @@ pre-commit install
 
 You're good to go!
 
-## Architecture
+### Architecture
 ![Architecture](./assets/architecture.png)
 
 1. DB stores all data from the texts.
 2. Core-API provides access to the database for the external services.
 3. Crawler-SVC starts all
+
+
+## Deployment
+
+Only thing you need to do is:
+```
+docker-compose up --build
+```
+
+Then all scrapped texts are available on the endpoint:
+```
+http://localhost:8081/scrapped-texts
+```
