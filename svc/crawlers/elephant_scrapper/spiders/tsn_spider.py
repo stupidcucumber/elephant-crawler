@@ -36,11 +36,14 @@ class TsnSpider(CrawlSpider):
         article_loader.add_css("title", "h1.c-card__title span::text")
         article_loader.add_css("subtitles", "div.c-article__lead p strong::text")
         article_loader.add_css("subtitles", "div[data-content] h2 strong::text")
+        article_loader.add_css("author", "dd span.c-bar__spacer-l::text")
         article_loader.add_value(
             "paragraphs",
             response.xpath("//div[@data-content]//p").xpath("string()").getall(),
         )
         article_loader.add_value("url", response.url)
+        article_loader.add_value("source", "tsn.ua")
+        article_loader.add_value("language", "ua")
         article_loader.add_css(
             "publication_date",
             "h1 + footer.c-card__foot dl dd.c-bar__label time::attr(datetime)",

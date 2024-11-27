@@ -11,6 +11,9 @@ class ArticleItem(scrapy.Item):
     paragraphs = scrapy.Field()
     publication_date = scrapy.Field()
     url = scrapy.Field()
+    author = scrapy.Field()
+    source = scrapy.Field()
+    language = scrapy.Field()
 
 
 def _remove_trailing_whitespace(input_string: str) -> str:
