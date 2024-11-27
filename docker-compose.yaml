@@ -37,6 +37,8 @@ services:
     build:
       context: .
       dockerfile: ./svc/crawlers/Dockerfile
+    volumes:
+      - ./svc/crawlers/.cache:/app/crawls/tsn_spider
     environment:
       - CORE_API_HOST=elephant-crawler-core-api-svc
       - CORE_API_PORT=80

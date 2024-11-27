@@ -9,4 +9,4 @@ RUN python -m pip install -r requirements.txt
 
 COPY svc/crawlers /app/
 
-CMD [ "python" , "main.py" ]
+CMD [ "scrapy", "crawl", "tsn.ua", "-s", "JOBDIR=crawls/tsn_spider" ]
