@@ -39,6 +39,6 @@ class CoreApiSession(Session):
             ID of the text inserted into the database.
         """
         response = super(CoreApiSession, self).post(
-            url=self._get_base_url() + "/scrapped-text", data=scrapped_text.model_dump()
+            url=self._get_base_url() + "/scrapped-text", json=scrapped_text.model_dump()
         )
         return response.json()

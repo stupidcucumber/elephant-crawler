@@ -19,14 +19,13 @@ class ScrappedText(BaseModel):
     link: str
     source: str
     lang: str
-    author: str
+    author: str | None = None
     header: str
     scrapped_text: str
     date_added: str | datetime
 
     @field_serializer("date_added")
-    @classmethod
-    def _serialize_date_added(cls, date: str | datetime) -> str:
+    def _serialize_date_added(self, date: str | datetime) -> str:
         if isinstance(date, datetime):
             return date.isoformat(sep=" ")
         return date
